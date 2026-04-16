@@ -14,29 +14,35 @@
 # define PUSH_SWAP_H
 
 # include <unistd.h>
+# include <stdlib.h>
 
 typedef struct s_list
 {
-    int             original;
-    unsigned int    converted;
-    struct s_list   *prev;
-    struct s_list   *next;
-}   t_list;
+	int				original;
+	unsigned int	converted;
+	struct s_list	*prev;
+	struct s_list	*next;
+}	t_list;
 
-int error();
-int	check_input(int argc, char *argv[]);
-int	ft_atoi(const char *str);
+int				error();
+t_list			*check_input(int argc, char *argv[]);
+int				ft_atoi(const char *str);
+char			*check_atoi(char *str);
 
-t_list	*ft_lstnew(int original, t_list *a_stack);
+t_list			*stack_a_alloc(int original, t_list *a_stack);
+void			stack_clear(t_list **stack);
+unsigned int	stack_size(t_list *stack);
+void			swap(t_list *first);
+void			swap_swap(t_list *stack_a, t_list *stack_b);
+static void		relink_from(t_list **from, t_list *last, t_list *second);
+static void		relink_to(t_list **to, t_list *last, t_list *first, t_list *new);
+void			push(t_list **from, t_list **to);
+void			rotate(t_list **stack);
+void			rev_rotate(t_list **stack);
+void			rotate_rotate(t_list **stack_a, t_list **stack_b);
+void			rev_rotate_rotate(t_list **stack_a, t_list **stack_b);
 
-void	ft_lstadd_front(t_list **lst, t_list *new);
-int		ft_lstsize(t_list *lst);
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-void	ft_lstiter(t_list *lst, void (*f)(void *));
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+void	insertion_sort(t_list **a_stack, t_list **b_stack);
 
+void	print_stack(t_list *stack);
 #endif
-

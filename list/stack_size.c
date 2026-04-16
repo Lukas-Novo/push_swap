@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnovotny <lnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/18 10:44:12 by lnovotny          #+#    #+#             */
-/*   Updated: 2025/11/19 18:42:47 by lnovotny         ###   ########.fr       */
+/*   Created: 2025/11/17 20:57:53 by lnovotny          #+#    #+#             */
+/*   Updated: 2025/11/18 19:06:39 by lnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,22 @@
 
 #include "push_swap.h"
 
-// Delete original of lst and free lst
+// Counts the number of nodes in the list.
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+unsigned int	stack_size(t_list *stack)
 {
-	if (lst == NULL || del == NULL)
-		return ;
-	del(lst->original);
-	free(lst);
+	unsigned int	count;
+	t_list	*head;
+
+	if (stack == NULL)
+		return (0);
+	head = stack;
+	count = 1;
+	head = head->next;
+	while (head != stack)
+	{
+		count++;
+		head = head->next;
+	}
+	return (count);
 }

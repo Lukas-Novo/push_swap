@@ -11,44 +11,31 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
-
-// kroky nize zopakovat argc-krat
-// brat jednotlive argumenty z argv
-// zkontrolovat je, jestli jsou int
-// prevezt je na int
-
-// vytvorit stack a o velikosti argc (double-linked list dokola),
-// ve kterem budou vsechny z argv
-
-// vytvorit stack b (ukazatel na nej) (sam by se mel vytvorit
-// s prvnim pridanim int ze stacku b)
 
 int	main(int argc, char *argv[])
 {
-	t_list	*a_stack;
+	t_list			*a_stack;
+	t_list			*b_stack;
+	unsigned int	total_size;
 
 	a_stack = check_input(argc, argv);
+	b_stack = NULL;
 	if (!a_stack)
 		return (error());
-	
-	int	i = 1;
-	while (argv[i])
-	{
-		printf("%s ", argv[i]);
-		++i;
-	}
-
+	total_size = stack_size(a_stack);
+	print_stack(a_stack);
+	insertion_sort(&a_stack, &b_stack);
+	print_stack(a_stack);
 	return (0);
 }
 
-int	check_input(int argc, char *argv[])
+t_list	*check_input(int argc, char *argv[])
 {
-	int	i;
+	int		i;
 	t_list	*head;
 	t_list	*temp;
-	char *str;
-	char *str_next;
+	char	*str;
+	char	*str_next;
 
 	i = 1;
 	head = NULL;
@@ -63,24 +50,24 @@ int	check_input(int argc, char *argv[])
 			if (str_next == NULL)
 			{
 				// VYMAZAT LIST!!!
-				return (0);
+				return (NULL);
 			}
-			temp = ft_lstnew(ft_atoi(str), head);
+			temp = stack_a_alloc(ft_atoi(str), head);
 			if (head == NULL)
 				head = temp;
 			if (temp == NULL)
 			{
 				// VYMAZAT LIST!!!
-				return (0);
+				return (NULL);
 			}
 			str = str_next;
 		}
 		++i;
 	}
-	return (1);
+	return (head);
 }
 
-int	check_atoi(char *str)
+char	*check_atoi(char *str)
 {
 	int	i;
 	int	sign;
@@ -103,9 +90,7 @@ int	check_atoi(char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 		i++;
 	if (str[i] && str[i] != ' ')
-		return (1);
-	if (str[i])
-		return (2);	
-	return (0);
+		return (NULL);
+	return (&str[i]);
 }
 
