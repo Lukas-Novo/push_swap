@@ -5,24 +5,23 @@ void	rotate(t_list **stack)
 	if (*stack == NULL)
 		return ;
 	*stack = (*stack)->next;
-	write(1, "--- rotate ---\n", 15);
 }
 
-void	rev_rotate(t_list **stack)
+void	ra(t_list **a_stack)
 {
-	if (*stack == NULL)
-		return ;
-	*stack = (*stack)->prev;
+	rotate(a_stack);
+	write(1, "ra\n", 3);
 }
 
-void	rotate_rotate(t_list **stack_a, t_list **stack_b)
+void	rb(t_list **b_stack)
 {
-	rotate(stack_a);
-	rotate(stack_b);
+	rotate(b_stack);
+	write(1, "rb\n", 3);
 }
 
-void	rev_rotate_rotate(t_list **stack_a, t_list **stack_b)
+void	rr(t_list **a_stack, t_list **b_stack)
 {
-	rev_rotate(stack_a);
-	rev_rotate(stack_b);
+	rotate(a_stack);
+	rotate(b_stack);
+	write(1, "rr\n", 3);
 }

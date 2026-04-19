@@ -47,5 +47,16 @@ void	push(t_list **from, t_list **to)
 		last_to = first_to->prev;
 	relink_from(from, last_from, second_from);
 	relink_to(to, last_to, first_to, first_from);
-	write(1, "--- push ---\n", 13);
+}
+
+void	pa(t_list **b_stack, t_list **a_stack)
+{
+	push(b_stack, a_stack);
+	write(1, "pa\n", 3);
+}
+
+void	pb(t_list **a_stack, t_list **b_stack)
+{
+	push(a_stack, b_stack);
+	write(1, "pb\n", 3);
 }

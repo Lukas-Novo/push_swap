@@ -11,13 +11,13 @@ void	insertion_sort(t_list **a_stack, t_list **b_stack)
 	{
 		while ((*a_stack)->converted != i)
 		{
-			rotate(a_stack);
+			ra(a_stack);
 		}
-		push(a_stack, b_stack);
+		pb(a_stack, b_stack);
 		++i;
 	}
 	while (*b_stack != NULL)
 	{
-		push(b_stack, a_stack);
+		pa(b_stack, a_stack);
 	}
 }
