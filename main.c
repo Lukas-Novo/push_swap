@@ -25,7 +25,7 @@ int	main(int argc, char *argv[])
 	// total_size = stack_size(a_stack);
 	// print_stack(a_stack);
 	// insertion_sort(a_stack, b_stack);
-	merge_sort(&a_stack, &b_stack);
+	quick_sort(&a_stack, &b_stack);
 	// print_stack(a_stack);
 	return (0);
 }

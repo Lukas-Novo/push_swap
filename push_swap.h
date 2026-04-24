@@ -49,12 +49,13 @@ void			rev_rotate(t_list **stack);
 void			rra(t_list **a_stack);
 void			rrb(t_list **b_stack);
 void			rrr(t_list **a_stack, t_list **b_stack);
-float			check_order(t_list **stack);
+float			check_order(t_list **stack, unsigned int min, unsigned int max, int ascending);
 
-void			merge_sort(t_list **a_stack, t_list **b_stack);
+void			quick_sort(t_list **a_stack, t_list **b_stack);
 void			divide_b(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned int b_max);
 void			divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned int a_max);
-void	shortest_rotations(t_list **stack, unsigned int count_back, void (*r)(t_list **), void (*rr)(t_list **));
+void			shortest_rotations(t_list **stack, unsigned int count_back, void (*r)(t_list **), void (*rr)(t_list **));
+void			sort_three(t_list **a_stack);
 
 void	insertion_sort(t_list **a_stack, t_list **b_stack);
 

@@ -1,8 +1,32 @@
 #include "push_swap.h"
 
-float	check_order(t_list **stack)
+float	check_order(t_list **stack, unsigned int min, unsigned int max, int ascending)
 {
 	t_list *head;
+	unsigned int	count;
+	unsigned int	ordered;
+	unsigned int	size;
+
+	head = *stack;
+	count = 0;
+	ordered = 0;
+	if (max == 0)
+		max = stack_size(stack);
+	size = max - min;
+	if (head == NULL || head == head->next || size == 0)
+		return 1;
+	while (head->next != *stack && count < size)
+	{
+		if (head->converted < (head->next)->converted)
+			++ordered;
+		++count;
+		head = head->next;
+	}
+	if (ascending)
+		return ((float) ordered / count);
+	return (1 - (float) ordered / count);
+
+/*	t_list *head;
 	unsigned int	total;
 	unsigned int	ordered;
 
@@ -13,10 +37,6 @@ float	check_order(t_list **stack)
 		return 1;
 	if (head == head->next)
 		return 1;
-	// if (head->converted < (head->next)->converted)
-	// 	++ordered;
-	// ++total;
-	// head = head->next;
 	while (head->next != *stack)
 	{
 		if (head->converted < (head->next)->converted)
@@ -25,4 +45,5 @@ float	check_order(t_list **stack)
 		head = head->next;
 	}
 	return ((float) ordered / total);
+	*/
 }
