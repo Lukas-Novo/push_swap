@@ -20,11 +20,12 @@ int	main(int argc, char *argv[])
 
 	a_stack = check_input(argc, argv);
 	b_stack = NULL;
-	if (!a_stack)
+	if (!(a_stack))
 		return (error());
-	total_size = stack_size(a_stack);
+	// total_size = stack_size(a_stack);
 	// print_stack(a_stack);
-	insertion_sort(&a_stack, &b_stack);
+	// insertion_sort(a_stack, b_stack);
+	merge_sort(&a_stack, &b_stack);
 	// print_stack(a_stack);
 	return (0);
 }

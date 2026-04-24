@@ -5,7 +5,7 @@ void	insertion_sort(t_list **a_stack, t_list **b_stack)
 	unsigned int	max;
 	unsigned int	i;
 
-	max = stack_size(*a_stack);
+	max = stack_size(a_stack);
 	i = 1;
 	while (i <= max)
 	{

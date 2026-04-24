@@ -16,17 +16,17 @@
 
 // Counts the number of nodes in the list.
 
-unsigned int	stack_size(t_list *stack)
+unsigned int	stack_size(t_list **stack)
 {
 	unsigned int	count;
 	t_list	*head;
 
-	if (stack == NULL)
+	if (*stack == NULL)
 		return (0);
-	head = stack;
+	head = *stack;
 	count = 1;
 	head = head->next;
-	while (head != stack)
+	while (head != *stack)
 	{
 		count++;
 		head = head->next;

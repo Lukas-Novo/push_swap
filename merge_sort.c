@@ -2,10 +2,73 @@
 
 void	merge_sort(t_list **a_stack, t_list **b_stack)
 {
+	unsigned int	size;
 
+	if (check_order(a_stack) == 1)
+		return ;
+	size = stack_size(a_stack);
+	divide_a(a_stack, b_stack, 1, size);
 }
 
-void	divide_b(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned int b_max);
+void	shortest_rotations(t_list **stack, unsigned int count_back, void (*r)(t_list **), void (*rr)(t_list **))
+{
+	unsigned int	size;
+
+	size = stack_size(stack);
+	if (size - count_back > count_back)
+	{
+		while (count_back > 0)
+		{
+			rr(stack);
+			--count_back;
+		}
+	}
+	else
+	{
+		count_back = size - count_back;
+		while (count_back > 0)
+		{
+			r(stack);
+			--count_back;
+		}
+	}
+}
+
+void	divide_b(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned int b_max)
+{
+	unsigned int	pivot;
+	unsigned int	count;
+	unsigned int	count_back;
+
+	if (b_min == b_max)
+		return ;
+	--b_max;
+	pivot = (b_min + b_max);
+	if (pivot % 2 == 0)
+		pivot = pivot / 2;
+	else
+		pivot = pivot / 2 + 1;
+	count =  b_max;
+	count_back = 0;
+
+	while (count >= pivot)
+	{
+		if ((*b_stack)->converted >= pivot)
+		{
+			pa(b_stack, a_stack);
+			--count;
+		}
+		else
+		{
+			rb(b_stack);
+			++count_back;
+		}	
+	}
+	shortest_rotations(b_stack, count_back, rb, rrb);
+	if (check_order(a_stack) < 1)
+		divide_a(a_stack, b_stack, pivot, b_max);
+	divide_b(a_stack, b_stack, b_min, pivot);
+}
 
 void	divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned int a_max)
 {
@@ -13,16 +76,26 @@ void	divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned i
 	unsigned int	count;
 	unsigned int	count_back;
 
-	pivot = (a_min + a_max) / 2;
-	count =  a_max;
+	pivot = (a_min + a_max);
+	if (pivot % 2 == 0)
+		pivot = pivot / 2;
+	else
+		pivot = pivot / 2 + 1;
+	count =  a_min;
 	count_back = 0;
 
-	while (count > pivot)
+// zde algoritmus pro vyřešení dvou nebo tří čísel
+	if (a_max - a_min == 1)
 	{
-		if ((*a_stack)->converted <= pivot && (*a_stack)->converted >= a_min)
+		sa(a_stack);
+		return ;
+	}
+	while (count < pivot)
+	{
+		if ((*a_stack)->converted < pivot)
 		{
 			pb(a_stack, b_stack);
-			--count;
+			++count;
 		}
 		else
 		{
@@ -30,12 +103,8 @@ void	divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned i
 			++count_back;
 		}	
 	}
-	while (count_back > 0)
-	{
-		rra(a_stack);
-		--count_back;
-	}
-	// checker if stack a is already orderer
-	divide_a(a_stack, b_stack, pivot, a_max);
+	shortest_rotations(a_stack, count_back, ra, rra);
+	if (check_order(a_stack) < 1)
+		divide_a(a_stack, b_stack, pivot, a_max);
 	divide_b(a_stack, b_stack, a_min, pivot);
 }
