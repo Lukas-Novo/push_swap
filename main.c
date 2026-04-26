@@ -22,10 +22,13 @@ int	main(int argc, char *argv[])
 	b_stack = NULL;
 	if (!(a_stack))
 		return (error());
-	// total_size = stack_size(a_stack);
+	total_size = stack_size(&a_stack);
 	// print_stack(a_stack);
 	// insertion_sort(a_stack, b_stack);
-	quick_sort(&a_stack, &b_stack);
+	if (total_size < 200)
+		chunk_sort(&a_stack, &b_stack);
+	else
+		quick_sort(&a_stack, &b_stack);
 	// print_stack(a_stack);
 	return (0);
 }

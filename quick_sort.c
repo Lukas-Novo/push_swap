@@ -31,6 +31,77 @@ void	sort_three(t_list **a_stack)
 		sa(a_stack);
 }
 
+void	sort_b_top_three(t_list **a_stack, t_list **b_stack)
+{
+	t_list	*first;
+	t_list	*second;
+	t_list	*third;
+
+	first = *b_stack;
+	second = first->next;
+	third = second->next;
+	if (first->converted > third->converted && first->converted > second->converted)
+	{
+		pa(a_stack, b_stack);
+		if (second->converted < third->converted)
+			sb(b_stack);
+		pa(a_stack, b_stack);
+		pa(a_stack, b_stack);
+	}
+	else if(second->converted > first->converted && second->converted > third->converted)
+	{
+		sb(b_stack);
+		pa(a_stack, b_stack);
+		if (third->converted > first->converted)
+			sb(b_stack);
+		pa(a_stack, b_stack);
+		pa(a_stack, b_stack);
+	}
+	else
+	{
+		if(second->converted > first->converted)
+			sb(b_stack);
+		pa(a_stack, b_stack);
+		sb(b_stack);
+		pa(a_stack, b_stack);
+		sa(a_stack);
+		pa(a_stack, b_stack);
+	}
+}
+
+void	sort_a_top_three(t_list **a_stack, t_list **b_stack)
+{
+	t_list	*first;
+	t_list	*second;
+	t_list	*third;
+
+	first = *a_stack;
+	second = first->next;
+	third = second->next;
+	if (first->converted > third->converted && first->converted > second->converted)
+	{
+		sa(a_stack);
+		ra(a_stack);
+		sa(a_stack);
+		rra(a_stack);
+		if (second->converted > third->converted)
+			sa(a_stack);
+	}
+	else if(second->converted > first->converted && second->converted > third->converted)
+	{
+		ra(a_stack);
+		sa(a_stack);
+		rra(a_stack);
+		if (first->converted > third->converted)
+			sa(a_stack);
+	}
+	else
+	{
+		if(first->converted > second->converted)
+			sa(a_stack);
+	}
+}
+
 void	shortest_rotations(t_list **stack, unsigned int count_back, void (*r)(t_list **), void (*rr)(t_list **))
 {
 	unsigned int	size;
@@ -64,7 +135,7 @@ void	pa_block(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned i
 	count = 0;
 	while (count < size)
 	{
-		pa(b_stack, a_stack);
+		pa(a_stack, b_stack);
 		++count;
 	}
 	
@@ -75,6 +146,7 @@ void	divide_b(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned i
 	unsigned int	pivot;
 	unsigned int	count;
 	unsigned int	count_back;
+	unsigned int	size;
 
 	if (b_min == b_max)
 		return ;
@@ -86,24 +158,30 @@ void	divide_b(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned i
 		pivot = pivot / 2 + 1;
 	count =  b_max;
 	count_back = 0;
+	size = b_max - b_min + 1;
 	if (check_order(b_stack, 1, 0, 0) == 1)
 	{
 		pa_block(a_stack, b_stack, b_min, b_max);
 		return ;
 	}
-	if (b_max - b_min == 1)
+	if (size == 2)
 	{
 		if ((*b_stack)->converted < (*b_stack)->next->converted)
 			sb(b_stack);
-		pa(b_stack, a_stack);
-		pa(b_stack, a_stack);
+		pa(a_stack, b_stack);
+		pa(a_stack, b_stack);
+		return ;
+	}
+	if (size == 3)
+	{
+		sort_b_top_three(a_stack, b_stack);
 		return ;
 	}
 	while (count >= pivot)
 	{
 		if ((*b_stack)->converted >= pivot)
 		{
-			pa(b_stack, a_stack);
+			pa(a_stack, b_stack);
 			--count;
 		}
 		else
@@ -123,6 +201,7 @@ void	divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned i
 	unsigned int	pivot;
 	unsigned int	count;
 	unsigned int	count_back;
+	unsigned int	size;
 
 	pivot = (a_min + a_max);
 	if (pivot % 2 == 0)
@@ -131,11 +210,16 @@ void	divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned i
 		pivot = pivot / 2 + 1;
 	count =  a_min;
 	count_back = 0;
+	size = a_max - a_min + 1;
 
-// zde algoritmus pro vyřešení dvou nebo tří čísel
-	if (a_max - a_min == 1)
+	if (size == 2)
 	{
 		sa(a_stack);
+		return ;
+	}
+	if (size == 3)
+	{
+		sort_a_top_three(a_stack, b_stack);
 		return ;
 	}
 	while (count < pivot)

@@ -39,7 +39,7 @@ void			ss(t_list **a_stack, t_list **b_stack);
 static void		relink_from(t_list **from, t_list *last, t_list *second);
 static void		relink_to(t_list **to, t_list *last, t_list *first, t_list *new);
 void			push(t_list **from, t_list **to);
-void			pa(t_list **b_stack, t_list **a_stack);
+void			pa(t_list **a_stack, t_list **b_stack);
 void			pb(t_list **a_stack, t_list **b_stack);
 void			rotate(t_list **stack);
 void			ra(t_list **a_stack);
@@ -56,6 +56,8 @@ void			divide_b(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned
 void			divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned int a_max);
 void			shortest_rotations(t_list **stack, unsigned int count_back, void (*r)(t_list **), void (*rr)(t_list **));
 void			sort_three(t_list **a_stack);
+
+void			chunk_sort(t_list **a_stack, t_list **b_stack);
 
 void	insertion_sort(t_list **a_stack, t_list **b_stack);
 

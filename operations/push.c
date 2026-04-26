@@ -49,7 +49,7 @@ void	push(t_list **from, t_list **to)
 	relink_to(to, last_to, first_to, first_from);
 }
 
-void	pa(t_list **b_stack, t_list **a_stack)
+void	pa(t_list **a_stack, t_list **b_stack)
 {
 	push(b_stack, a_stack);
 	write(1, "pa\n", 3);
