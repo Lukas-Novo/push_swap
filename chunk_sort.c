@@ -43,15 +43,17 @@ long	distance_from_zero(long position)
 		return (-position);
 }
 
-void	sort_chunk_to_a(t_list **a_stack, t_list **b_stack, int chunk_size, unsigned int max)
+void	sort_chunk_to_a(t_list **a_stack, t_list **b_stack)
 {
 	long	position_big;
 	long	position_small;
+	unsigned int	max;
 
-	while (*b_stack && chunk_size > 0)
+	max = stack_size(b_stack);
+	while (*b_stack && max > 0)
 	{
 		position_big = find_in_chunk(b_stack, max);
-		--chunk_size;
+		// --chunk_size;
 		--max;
 		if (max > 0)
 		{
@@ -106,6 +108,8 @@ void	sort_chunk_to_a(t_list **a_stack, t_list **b_stack, int chunk_size, unsigne
 				pa(a_stack, b_stack);
 				if ((*a_stack)->converted > (*a_stack)->next->converted)
 					sa(a_stack);
+				// --chunk_size;
+				--max;
 			}
 		}
 		else
@@ -144,9 +148,17 @@ void	chunk_sort(t_list **a_stack, t_list **b_stack)
 		if ((*a_stack)->converted > min && (*a_stack)->converted <= max)
 		{
 			pb(a_stack, b_stack);
+			if ((*b_stack)->converted <= min + chunk_size / 2)
+				rb(b_stack);
 			--count;
 			if (count < 1)
 			{
+				// count = chunk_size / 2;
+				// while (count > 0)
+				// {
+				// 	rrb(b_stack);
+				// 	--count;
+				// }
 				max = max + chunk_size;
 				min = min + chunk_size;
 				count = chunk_size;
@@ -155,10 +167,10 @@ void	chunk_sort(t_list **a_stack, t_list **b_stack)
 		else
 			ra(a_stack);
 	}
-	max = stack_size(b_stack);
-	while (*b_stack)
-	{
-		sort_chunk_to_a(a_stack, b_stack, chunk_size, max);
-		max = max - chunk_size;
-	}
+	sort_chunk_to_a(a_stack, b_stack);
+	// while (*b_stack)
+	// {
+	// 	sort_chunk_to_a(a_stack, b_stack, chunk_size, max);
+	// 	max = max - chunk_size;
+	// }
 }
