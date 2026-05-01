@@ -17,22 +17,6 @@ long	find_in_chunk(t_list **stack, unsigned int value)
 	if (position > size - position)
 		return (position - size);
 	return (position);
-
-	// while (position < 17)
-	// {
-	// 	if (stack_value->converted == value)
-	// 		return position;
-	// 	stack_value = stack_value->next;
-	// 	++position;
-	// }
-	// stack_value = (*stack)->prev;
-	// position = -1;
-	// while (stack_value->converted != value)
-	// {
-	// 	stack_value = stack_value->prev;
-	// 	--position;
-	// }
-	// return position;
 }
 
 long	distance_from_zero(long position)
@@ -153,12 +137,6 @@ void	chunk_sort(t_list **a_stack, t_list **b_stack)
 			--count;
 			if (count < 1)
 			{
-				// count = chunk_size / 2;
-				// while (count > 0)
-				// {
-				// 	rrb(b_stack);
-				// 	--count;
-				// }
 				max = max + chunk_size;
 				min = min + chunk_size;
 				count = chunk_size;
@@ -168,9 +146,4 @@ void	chunk_sort(t_list **a_stack, t_list **b_stack)
 			ra(a_stack);
 	}
 	sort_chunk_to_a(a_stack, b_stack);
-	// while (*b_stack)
-	// {
-	// 	sort_chunk_to_a(a_stack, b_stack, chunk_size, max);
-	// 	max = max - chunk_size;
-	// }
 }

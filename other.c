@@ -1,36 +1,39 @@
 #include "push_swap.h"
 
-int	ft_atoi(const char *str)
+int	size_of_number(int num)
+{
+	int	size;
+
+	size = 0;
+	while (num)
+	{
+		++size;
+		num = num / 10;
+	}
+	return (size);
+}
+
+int error()
+{
+	write(2, "Error\n", 6);
+	return (0);
+}
+
+int	skip_whitespace_and_sign(char *str, int *sign)
 {
 	int	i;
-	int	sign;
-	int	nb;
 
 	i = 0;
-	sign = 1;
-	nb = 0;
 	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v'
 		|| str[i] == '\f' || str[i] == '\r' || str[i] == '\n')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			sign = -sign;
+			*sign = -*sign;
 		i++;
 	}
 	while (str[i] == '0')
 		i++;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		nb = nb * 10;
-		nb = nb + str[i] - '0';
-		i++;
-	}
-	return (sign * nb);
-}
-
-int error()
-{
-	write(1, "Error\n", 6);
-	return (1);
+	return (i);
 }

@@ -18,27 +18,48 @@ int	main(int argc, char *argv[])
 	t_list			*b_stack;
 	unsigned int	total_size;
 
-	a_stack = check_input(argc, argv);
+	a_stack = initialize_stack(argv);
 	b_stack = NULL;
 	if (!(a_stack))
 		return (error());
 	total_size = stack_size(&a_stack);
-	// print_stack(a_stack);
-	// insertion_sort(a_stack, b_stack);
-	if (total_size < 200)
+	if (total_size < 6)
+		quick_sort(&a_stack, &b_stack);
+	else if (total_size < 200)
 		chunk_sort(&a_stack, &b_stack);
 	else
 		quick_sort(&a_stack, &b_stack);
-	// print_stack(a_stack);
+	stack_clear(&a_stack);
+	stack_clear(&b_stack);
 	return (0);
 }
+char	*check_and_add_number(char *str_next, t_list **head)
+{
+	char	*str;
+	t_list	*temp;
 
-t_list	*check_input(int argc, char *argv[])
+	temp = NULL;
+	str = str_next;
+	str_next = check_atoi(str);
+	if (str_next == NULL)
+	{
+		stack_clear(head);
+		return (NULL);
+	}
+	temp = add_to_stack(str, head);
+	if (temp == NULL)
+	{
+		stack_clear(head);
+		return (NULL);
+	}
+	return (str_next);
+}
+
+t_list	*initialize_stack(char *argv[])
 {
 	int		i;
 	t_list	*head;
 	t_list	*temp;
-	char	*str;
 	char	*str_next;
 
 	i = 1;
@@ -46,55 +67,53 @@ t_list	*check_input(int argc, char *argv[])
 	temp = NULL;
 	while (argv[i])
 	{
-		str = argv[i];
-		str_next = str;
+		str_next = argv[i];
 		while (*str_next)
 		{
-			str_next = check_atoi(str);
+			str_next = check_and_add_number(str_next, &head);
 			if (str_next == NULL)
-			{
-				// VYMAZAT LIST!!!
 				return (NULL);
-			}
-			temp = stack_a_alloc(ft_atoi(str), head);
-			if (head == NULL)
-				head = temp;
-			if (temp == NULL)
-			{
-				// VYMAZAT LIST!!!
-				return (NULL);
-			}
-			str = str_next;
 		}
 		++i;
 	}
 	return (head);
 }
 
+int	is_cifer(char num)
+{
+	if (num >= '0' && num <= '9')
+		return (1);
+	return (0);
+}
+
 char	*check_atoi(char *str)
+{
+	int	i;
+	int	sign;
+
+	sign = 1;
+	i = skip_whitespace_and_sign(str, &sign);
+	while (is_cifer(str[i]))
+		i++;
+	if ((str[i] && str[i] != ' ') || (i > 0 && !is_cifer(str[i - 1])))
+		return (NULL);
+	return (&str[i]);
+}
+
+int	ft_atoi(char *str)
 {
 	int	i;
 	int	sign;
 	int	nb;
 
-	i = 0;
 	sign = 1;
 	nb = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v'
-		|| str[i] == '\f' || str[i] == '\r' || str[i] == '\n')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	i = skip_whitespace_and_sign(str, &sign);
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (str[i] == '-')
-			sign = -sign;
+		nb = nb * 10;
+		nb = nb + str[i] - '0';
 		i++;
 	}
-	while (str[i] == '0')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
-		i++;
-	if (str[i] && str[i] != ' ')
-		return (NULL);
-	return (&str[i]);
+	return (sign * nb);
 }
-

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_a_alloc.c                                        :+:      :+:    :+:   */
+/*   add_to_stack.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnovotny <lnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,18 +10,60 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// OK
-
 #include "push_swap.h"
 
-// Create new list.
+int	check_size(char *str, int size_num)
+{
+	while (*str && *str != ' ' && *str != '\t' && *str != '\v'
+		&& *str != '\f' && *str != '\r' && *str != '\n' && size_num > 0)
+	{
+		--size_num;
+		++str;
+	}
+	if ((*str == '\0' || *str == ' ' || *str == '\t' || *str == '\v'
+		|| *str == '\f' || *str == '\r' || *str == '\n') && size_num == 0)
+		return (1);
+	if ((*str == '\0' || *str == ' ' || *str == '\t' || *str == '\v'
+		|| *str == '\f' || *str == '\r' || *str == '\n') && size_num == 0)
+		return (1);
+	return (0);
+}
 
-t_list	*stack_a_alloc(int original, t_list *a_stack)
+int	check_overflow(char *str, int original)
+{
+	int	i;
+	int	sign;
+	int size_original;
+
+	sign = 1;
+	i = skip_whitespace_and_sign(str, &sign);
+	size_original = size_of_number(original);
+	if (!check_size(&str[i], size_original))
+		return (1);
+	if ((sign > 0 && original < 0) || (sign < 0 && original > 0))
+		return (1);
+	while (size_original > 0)
+	{
+		if (str[size_original - 1 + i] != (original % 10) * sign + '0')
+			return (1);
+		--size_original;
+		original = original / 10;
+	}
+	if (size_original > 0)
+		return (1);
+	return (0);
+}
+
+t_list	*add_to_stack(char *arg, t_list **stack)
 {
 	t_list	*new;
 	t_list	*pars;
+	int		original;
 
-	pars = a_stack;
+	original = ft_atoi(arg);
+	if (check_overflow(arg, original))
+		return (NULL);
+	pars = *stack;
 	new = malloc(sizeof(t_list));
 	if (new == NULL)
 		return (NULL);
@@ -29,10 +71,13 @@ t_list	*stack_a_alloc(int original, t_list *a_stack)
 	new->converted = 1;
 	new->prev = new;
 	new->next = new;
-	if (a_stack == NULL)
+	if (*stack == NULL)
+	{
+		*stack = new;
 		return (new);
-	new->next = a_stack;
-	new->prev = a_stack->prev;
+	}
+	new->next = *stack;
+	new->prev = (*stack)->prev;
 	(new->next)->prev = new;
 	(new->prev)->next = new;
 	while (pars != new)
