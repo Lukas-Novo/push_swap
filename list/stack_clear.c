@@ -4,10 +4,11 @@ void	stack_clear(t_list **stack)
 {
 	t_list	*head;
 
-	if (*stack == NULL)
+	if (stack == NULL || *stack == NULL)
 		return ;
 	head = (*stack)->prev;
-	while (head != *stack)
+	(*stack)->prev = NULL;
+	while (head->prev != NULL)
 	{
 		head = head->prev;
 		free(head->next);

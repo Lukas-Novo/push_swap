@@ -1,7 +1,7 @@
 #include "push_swap.h"
 
 
-static void	relink_from(t_list **from, t_list *last, t_list *second)
+void	relink_from(t_list **from, t_list *last, t_list *second)
 {
 	if (last == last->next)
 	{
@@ -13,7 +13,7 @@ static void	relink_from(t_list **from, t_list *last, t_list *second)
 	*from = second;
 }
 
-static void	relink_to(t_list **to, t_list *last, t_list *first, t_list *new)
+void	relink_to(t_list **to, t_list *last, t_list *first, t_list *new)
 {
 	*to = new;
 	if (first == NULL)

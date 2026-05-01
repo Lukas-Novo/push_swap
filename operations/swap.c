@@ -10,6 +10,11 @@ void	swap(t_list **stack)
 	first = *stack;
 	if (first == NULL || first == first->next)
 		return ;
+	if ((*stack)->prev == (*stack)->next)
+	{
+		rotate(stack);
+		return ;
+	}
 	last = first->prev;
 	second = first->next;
 	third = second->next;
