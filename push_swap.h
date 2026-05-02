@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
 
 typedef struct s_list
 {
@@ -24,6 +25,11 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+t_list			*add_to_stack(char *arg, t_list **a_stack);
+int				check_size(char *str, int size_num);
+int				check_overflow(char *str, int original);
+t_list			*create_node(int original);
+t_list			*connect_node(t_list **stack, t_list *new);
 void			stack_clear(t_list **stack);
 unsigned int	stack_size(t_list **stack);
 
@@ -47,17 +53,25 @@ void			swap(t_list **first);
 void			sa(t_list **a_stack);
 void			sb(t_list **b_stack);
 void			ss(t_list **a_stack, t_list **b_stack);
+
+void			chunk_sort(t_list **a_stack, t_list **b_stack);
+void			move_chunks_to_b(t_list **a_stack, t_list **b_stack, int chunk_size);
+void			sort_chunks_to_a(t_list **a_stack, t_list **b_stack);
+void			find_in_b_push_to_a(t_list **a_stack, t_list **b_stack, long position);
+long			find_position_in_chunk(t_list **stack, unsigned int value);
+
 // =======================================================
 int				error(void);
 int				size_of_number(int num);
 int				skip_whitespace_and_sign(char *str, int *sign);
 char			*check_and_add_number(char *str_next, t_list **head);
+long			distance_from_zero(long position);
 
 t_list			*initialize_stack(char *argv[]);
 int				ft_atoi(char *str);
 char			*check_atoi(char *str);
 
-t_list			*add_to_stack(char *arg, t_list **a_stack);
+
 
 float			check_order(t_list **stack, unsigned int min, unsigned int max, int ascending);
 
@@ -67,7 +81,6 @@ void			divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned
 void			shortest_rotations(t_list **stack, unsigned int count_back, void (*r)(t_list **), void (*rr)(t_list **));
 void			sort_three(t_list **a_stack);
 
-void			chunk_sort(t_list **a_stack, t_list **b_stack);
 
 // void	insertion_sort(t_list **a_stack, t_list **b_stack);
 // void	print_stack(t_list *stack);

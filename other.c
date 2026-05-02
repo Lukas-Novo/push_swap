@@ -37,3 +37,11 @@ int	skip_whitespace_and_sign(char *str, int *sign)
 		i++;
 	return (i);
 }
+
+long	distance_from_zero(long position)
+{
+	if (position >= 0)
+		return (position);
+	else
+		return (-position);
+}

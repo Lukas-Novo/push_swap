@@ -10,11 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// OK
-
 #include "push_swap.h"
-
-// Counts the number of nodes in the list.
 
 unsigned int	stack_size(t_list **stack)
 {

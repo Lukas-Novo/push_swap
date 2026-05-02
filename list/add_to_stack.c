@@ -54,16 +54,10 @@ int	check_overflow(char *str, int original)
 	return (0);
 }
 
-t_list	*add_to_stack(char *arg, t_list **stack)
+t_list	*create_node(int original)
 {
-	t_list	*new;
-	t_list	*pars;
-	int		original;
+	t_list *new;
 
-	original = ft_atoi(arg);
-	if (check_overflow(arg, original))
-		return (NULL);
-	pars = *stack;
 	new = malloc(sizeof(t_list));
 	if (new == NULL)
 		return (NULL);
@@ -71,11 +65,14 @@ t_list	*add_to_stack(char *arg, t_list **stack)
 	new->converted = 1;
 	new->prev = new;
 	new->next = new;
-	if (*stack == NULL)
-	{
-		*stack = new;
-		return (new);
-	}
+	return (new);
+}
+
+t_list	*connect_node(t_list **stack, t_list *new)
+{
+	t_list	*pars;
+
+	pars = *stack;
 	new->next = *stack;
 	new->prev = (*stack)->prev;
 	(new->next)->prev = new;
@@ -91,4 +88,23 @@ t_list	*add_to_stack(char *arg, t_list **stack)
 		pars = pars->next;
 	}
 	return (new);
+}
+
+t_list	*add_to_stack(char *arg, t_list **stack)
+{
+	t_list	*new;
+	int		original;
+
+	original = ft_atoi(arg);
+	if (check_overflow(arg, original))
+		return (NULL);
+	new = create_node(original);
+	if (new == NULL)
+		return (NULL);
+	if (*stack == NULL)
+	{
+		*stack = new;
+		return (new);
+	}
+	return (connect_node(stack, new));
 }

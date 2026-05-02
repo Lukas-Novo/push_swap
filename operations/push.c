@@ -1,6 +1,5 @@
 #include "push_swap.h"
 
-
 void	relink_from(t_list **from, t_list *last, t_list *second)
 {
 	if (last == last->next)
