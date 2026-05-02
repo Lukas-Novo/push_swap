@@ -78,17 +78,23 @@ void			sort_a_top_three_first_biggest(t_list **a_stack, t_list *second, t_list *
 void			sort_a_top_three_second_biggest(t_list **a_stack, t_list *first, t_list *third);
 void			sort_a_top_three_third_biggest(t_list **a_stack, t_list *first, t_list *second);
 
+void			quick_sort(t_list **a_stack, t_list **b_stack);
+void			shortest_rotations(t_list **stack, unsigned int count_back, void (*r)(t_list **), void (*rr)(t_list **));
+unsigned int	find_pivot(unsigned int min, unsigned int max);
+float			check_order(t_list **stack, unsigned int min, unsigned int max, int ascending);
+
+void			divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned int a_max);
+unsigned int	divide_a_with_pivot(t_list **a_stack, t_list **b_stack, unsigned int pivot, unsigned int a_min);
+
+void			divide_b(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned int b_max);
+unsigned int	divide_b_with_pivot(t_list **a_stack, t_list **b_stack, unsigned int pivot, unsigned int b_max);
+void			sort_b_two(t_list **a_stack, t_list **b_stack);
+
 // =======================================================
 int				error(void);
 int				size_of_number(int num);
 long			distance_from_zero(long position);
 
-float			check_order(t_list **stack, unsigned int min, unsigned int max, int ascending);
-
-void			quick_sort(t_list **a_stack, t_list **b_stack);
-void			divide_b(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned int b_max);
-void			divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned int a_max);
-void			shortest_rotations(t_list **stack, unsigned int count_back, void (*r)(t_list **), void (*rr)(t_list **));
 
 
 #endif

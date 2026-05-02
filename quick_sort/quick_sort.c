@@ -34,97 +34,41 @@ void	shortest_rotations(t_list **stack, unsigned int count_back, void (*r)(t_lis
 	}
 }
 
-void	divide_b(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned int b_max)
+unsigned int	find_pivot(unsigned int min, unsigned int max)
 {
 	unsigned int	pivot;
-	unsigned int	count;
-	unsigned int	count_back;
-	unsigned int	size;
 
-	if (b_min == b_max)
-		return ;
-	--b_max;
-	pivot = (b_min + b_max);
+	pivot = (min + max);
 	if (pivot % 2 == 0)
 		pivot = pivot / 2;
 	else
 		pivot = pivot / 2 + 1;
-	count =  b_max;
-	count_back = 0;
-	size = b_max - b_min + 1;
-	if (size == 2)
-	{
-		if ((*b_stack)->converted < (*b_stack)->next->converted)
-			sb(b_stack);
-		pa(a_stack, b_stack);
-		pa(a_stack, b_stack);
-		return ;
-	}
-	if (size == 3)
-	{
-		sort_b_top_three(a_stack, b_stack);
-		return ;
-	}
-	while (count >= pivot)
-	{
-		if ((*b_stack)->converted >= pivot)
-		{
-			pa(a_stack, b_stack);
-			--count;
-		}
-		else
-		{
-			rb(b_stack);
-			++count_back;
-		}	
-	}
-	shortest_rotations(b_stack, count_back, rb, rrb);
-	if (check_order(a_stack, pivot, b_max, 1) < 1)
-		divide_a(a_stack, b_stack, pivot, b_max);
-	divide_b(a_stack, b_stack, b_min, pivot);
+	return (pivot);
 }
 
-void	divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned int a_max)
+float	check_order(t_list **stack, unsigned int min, unsigned int max, int ascending)
 {
-	unsigned int	pivot;
+	t_list *head;
 	unsigned int	count;
-	unsigned int	count_back;
+	unsigned int	ordered;
 	unsigned int	size;
 
-	pivot = (a_min + a_max);
-	if (pivot % 2 == 0)
-		pivot = pivot / 2;
-	else
-		pivot = pivot / 2 + 1;
-	count =  a_min;
-	count_back = 0;
-	size = a_max - a_min + 1;
-
-	if (size == 2)
+	head = *stack;
+	count = 0;
+	ordered = 0;
+	if (max == 0)
+		max = stack_size(stack);
+	size = max - min;
+	if (head == NULL || head == head->next || size == 0)
+		return 1;
+	while (head->next != *stack && count < size)
 	{
-		sa(a_stack);
-		return ;
+		if (head->converted < (head->next)->converted)
+			++ordered;
+		++count;
+		head = head->next;
 	}
-	if (size == 3)
-	{
-		sort_a_top_three(a_stack);
-		return ;
-	}
-	while (count < pivot)
-	{
-		if ((*a_stack)->converted < pivot)
-		{
-			pb(a_stack, b_stack);
-			++count;
-		}
-		else
-		{
-			ra(a_stack);
-			++count_back;
-		}	
-	}
-	shortest_rotations(a_stack, count_back, ra, rra);
-	if (check_order(a_stack, pivot, a_max, 1) < 1)
-		divide_a(a_stack, b_stack, pivot, a_max);
-	divide_b(a_stack, b_stack, a_min, pivot);
+	if (ascending)
+		return ((float) ordered / count);
+	return (1 - (float) ordered / count);
 }
