@@ -34,21 +34,6 @@ void	shortest_rotations(t_list **stack, unsigned int count_back, void (*r)(t_lis
 	}
 }
 
-// void	pa_block(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned int b_max)
-// {
-// 	unsigned int	count;
-// 	unsigned int	size;
-
-// 	size = b_max - b_min + 1;
-// 	count = 0;
-// 	while (count < size)
-// 	{
-// 		pa(a_stack, b_stack);
-// 		++count;
-// 	}
-	
-// }
-
 void	divide_b(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned int b_max)
 {
 	unsigned int	pivot;
@@ -67,11 +52,6 @@ void	divide_b(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned i
 	count =  b_max;
 	count_back = 0;
 	size = b_max - b_min + 1;
-	// if (check_order(b_stack, 1, 0, 0) == 1)
-	// {
-	// 	pa_block(a_stack, b_stack, b_min, b_max);
-	// 	return ;
-	// }
 	if (size == 2)
 	{
 		if ((*b_stack)->converted < (*b_stack)->next->converted)
