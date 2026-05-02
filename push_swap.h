@@ -15,7 +15,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <limits.h>
 
 typedef struct s_list
 {
@@ -60,18 +59,24 @@ void			sort_chunks_to_a(t_list **a_stack, t_list **b_stack);
 void			find_in_b_push_to_a(t_list **a_stack, t_list **b_stack, long position);
 long			find_position_in_chunk(t_list **stack, unsigned int value);
 
+int				ft_atoi(char *str);
+int				skip_whitespace_and_sign(char *str, int *sign);
+
+t_list			*initialize_stack(char *argv[]);
+char			*check_and_add_number(char *str_next, t_list **head);
+char			*check_atoi(char *str);
+int				is_cifer(char num);
+
+void			sort_b_top_three(t_list **a_stack, t_list **b_stack);
+void			sort_b_top_three_first_biggest(t_list **a_stack, t_list **b_stack, t_list *second, t_list *third);
+void			sort_b_top_three_second_biggest(t_list **a_stack, t_list **b_stack, t_list *first, t_list *third);
+void			sort_b_top_three_third_biggest(t_list **a_stack, t_list **b_stack, t_list *first, t_list *second);
+
+void			sort_a_top_three(t_list **a_stack);
 // =======================================================
 int				error(void);
 int				size_of_number(int num);
-int				skip_whitespace_and_sign(char *str, int *sign);
-char			*check_and_add_number(char *str_next, t_list **head);
 long			distance_from_zero(long position);
-
-t_list			*initialize_stack(char *argv[]);
-int				ft_atoi(char *str);
-char			*check_atoi(char *str);
-
-
 
 float			check_order(t_list **stack, unsigned int min, unsigned int max, int ascending);
 
@@ -81,7 +86,4 @@ void			divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned
 void			shortest_rotations(t_list **stack, unsigned int count_back, void (*r)(t_list **), void (*rr)(t_list **));
 void			sort_three(t_list **a_stack);
 
-
-// void	insertion_sort(t_list **a_stack, t_list **b_stack);
-// void	print_stack(t_list *stack);
 #endif

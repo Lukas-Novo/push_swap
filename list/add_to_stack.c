@@ -12,21 +12,23 @@
 
 #include "push_swap.h"
 
-int	check_size(char *str, int size_num)
+t_list	*add_to_stack(char *arg, t_list **stack)
 {
-	while (*str && *str != ' ' && *str != '\t' && *str != '\v'
-		&& *str != '\f' && *str != '\r' && *str != '\n' && size_num > 0)
+	t_list	*new;
+	int		original;
+
+	original = ft_atoi(arg);
+	if (check_overflow(arg, original))
+		return (NULL);
+	new = create_node(original);
+	if (new == NULL)
+		return (NULL);
+	if (*stack == NULL)
 	{
-		--size_num;
-		++str;
+		*stack = new;
+		return (new);
 	}
-	if ((*str == '\0' || *str == ' ' || *str == '\t' || *str == '\v'
-		|| *str == '\f' || *str == '\r' || *str == '\n') && size_num == 0)
-		return (1);
-	if ((*str == '\0' || *str == ' ' || *str == '\t' || *str == '\v'
-		|| *str == '\f' || *str == '\r' || *str == '\n') && size_num == 0)
-		return (1);
-	return (0);
+	return (connect_node(stack, new));
 }
 
 int	check_overflow(char *str, int original)
@@ -50,6 +52,23 @@ int	check_overflow(char *str, int original)
 		original = original / 10;
 	}
 	if (size_original > 0)
+		return (1);
+	return (0);
+}
+
+int	check_size(char *str, int size_num)
+{
+	while (*str && *str != ' ' && *str != '\t' && *str != '\v'
+		&& *str != '\f' && *str != '\r' && *str != '\n' && size_num > 0)
+	{
+		--size_num;
+		++str;
+	}
+	if ((*str == '\0' || *str == ' ' || *str == '\t' || *str == '\v'
+		|| *str == '\f' || *str == '\r' || *str == '\n') && size_num == 0)
+		return (1);
+	if ((*str == '\0' || *str == ' ' || *str == '\t' || *str == '\v'
+		|| *str == '\f' || *str == '\r' || *str == '\n') && size_num == 0)
 		return (1);
 	return (0);
 }
@@ -88,23 +107,4 @@ t_list	*connect_node(t_list **stack, t_list *new)
 		pars = pars->next;
 	}
 	return (new);
-}
-
-t_list	*add_to_stack(char *arg, t_list **stack)
-{
-	t_list	*new;
-	int		original;
-
-	original = ft_atoi(arg);
-	if (check_overflow(arg, original))
-		return (NULL);
-	new = create_node(original);
-	if (new == NULL)
-		return (NULL);
-	if (*stack == NULL)
-	{
-		*stack = new;
-		return (new);
-	}
-	return (connect_node(stack, new));
 }

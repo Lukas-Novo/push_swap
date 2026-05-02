@@ -5,101 +5,9 @@ void	quick_sort(t_list **a_stack, t_list **b_stack)
 	unsigned int	size;
 
 	size = stack_size(a_stack);
-	if (size == 3)
-		sort_three(a_stack);
 	if (check_order(a_stack, 1, size, 1) == 1)
 		return ;
 	divide_a(a_stack, b_stack, 1, size);
-}
-
-void	sort_three(t_list **a_stack)
-{
-	t_list	*first;
-	t_list	*second;
-	t_list	*third;
-
-	first = *a_stack;
-	second = first->next;
-	third = second->next;
-	if (first->converted > third->converted && first->converted > second->converted)
-		ra(a_stack);
-	else if(second->converted > first->converted && second->converted > third->converted)
-		rra(a_stack);
-	first = *a_stack;
-	second = first->next;
-	if (first->converted > second->converted)
-		sa(a_stack);
-}
-
-void	sort_b_top_three(t_list **a_stack, t_list **b_stack)
-{
-	t_list	*first;
-	t_list	*second;
-	t_list	*third;
-
-	first = *b_stack;
-	second = first->next;
-	third = second->next;
-	if (first->converted > third->converted && first->converted > second->converted)
-	{
-		pa(a_stack, b_stack);
-		if (second->converted < third->converted)
-			sb(b_stack);
-		pa(a_stack, b_stack);
-		pa(a_stack, b_stack);
-	}
-	else if(second->converted > first->converted && second->converted > third->converted)
-	{
-		sb(b_stack);
-		pa(a_stack, b_stack);
-		if (third->converted > first->converted)
-			sb(b_stack);
-		pa(a_stack, b_stack);
-		pa(a_stack, b_stack);
-	}
-	else
-	{
-		if(second->converted > first->converted)
-			sb(b_stack);
-		pa(a_stack, b_stack);
-		sb(b_stack);
-		pa(a_stack, b_stack);
-		sa(a_stack);
-		pa(a_stack, b_stack);
-	}
-}
-
-void	sort_a_top_three(t_list **a_stack, t_list **b_stack)
-{
-	t_list	*first;
-	t_list	*second;
-	t_list	*third;
-
-	first = *a_stack;
-	second = first->next;
-	third = second->next;
-	if (first->converted > third->converted && first->converted > second->converted)
-	{
-		sa(a_stack);
-		ra(a_stack);
-		sa(a_stack);
-		rra(a_stack);
-		if (second->converted > third->converted)
-			sa(a_stack);
-	}
-	else if(second->converted > first->converted && second->converted > third->converted)
-	{
-		ra(a_stack);
-		sa(a_stack);
-		rra(a_stack);
-		if (first->converted > third->converted)
-			sa(a_stack);
-	}
-	else
-	{
-		if(first->converted > second->converted)
-			sa(a_stack);
-	}
 }
 
 void	shortest_rotations(t_list **stack, unsigned int count_back, void (*r)(t_list **), void (*rr)(t_list **))
@@ -126,20 +34,20 @@ void	shortest_rotations(t_list **stack, unsigned int count_back, void (*r)(t_lis
 	}
 }
 
-void	pa_block(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned int b_max)
-{
-	unsigned int	count;
-	unsigned int	size;
+// void	pa_block(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned int b_max)
+// {
+// 	unsigned int	count;
+// 	unsigned int	size;
 
-	size = b_max - b_min + 1;
-	count = 0;
-	while (count < size)
-	{
-		pa(a_stack, b_stack);
-		++count;
-	}
+// 	size = b_max - b_min + 1;
+// 	count = 0;
+// 	while (count < size)
+// 	{
+// 		pa(a_stack, b_stack);
+// 		++count;
+// 	}
 	
-}
+// }
 
 void	divide_b(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned int b_max)
 {
@@ -159,11 +67,11 @@ void	divide_b(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned i
 	count =  b_max;
 	count_back = 0;
 	size = b_max - b_min + 1;
-	if (check_order(b_stack, 1, 0, 0) == 1)
-	{
-		pa_block(a_stack, b_stack, b_min, b_max);
-		return ;
-	}
+	// if (check_order(b_stack, 1, 0, 0) == 1)
+	// {
+	// 	pa_block(a_stack, b_stack, b_min, b_max);
+	// 	return ;
+	// }
 	if (size == 2)
 	{
 		if ((*b_stack)->converted < (*b_stack)->next->converted)
@@ -219,7 +127,7 @@ void	divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned i
 	}
 	if (size == 3)
 	{
-		sort_a_top_three(a_stack, b_stack);
+		sort_a_top_three(a_stack);
 		return ;
 	}
 	while (count < pivot)
