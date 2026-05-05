@@ -6,7 +6,7 @@
 /*   By: lnovotny <lnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 17:38:16 by lnovotny          #+#    #+#             */
-/*   Updated: 2026/03/28 17:41:55 by lnovotny         ###   ########.fr       */
+/*   Updated: 2026/05/05 18:18:15 by lnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void			divide_b(t_list **a_stack, t_list **b_stack, unsigned int b_min, unsigned
 unsigned int	divide_b_with_pivot(t_list **a_stack, t_list **b_stack, unsigned int pivot, unsigned int b_max);
 void			sort_b_two(t_list **a_stack, t_list **b_stack);
 
-// =======================================================
 int				error(void);
 int				size_of_number(int num);
 long			distance_from_zero(long position);
