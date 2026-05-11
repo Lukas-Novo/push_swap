@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   chunk_sort.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnovotny <lnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/06 17:12:28 by lnovotny          #+#    #+#             */
+/*   Updated: 2026/05/06 19:15:45 by lnovotny         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	chunk_sort(t_list **a_stack, t_list **b_stack)
@@ -5,6 +17,8 @@ void	chunk_sort(t_list **a_stack, t_list **b_stack)
 	int		chunk_size;
 
 	chunk_size = 18;
+	if (check_order_stack_a(a_stack) == 1)
+		return ;
 	move_chunks_to_b(a_stack, b_stack, chunk_size);
 	sort_chunks_to_a(a_stack, b_stack);
 }
@@ -47,7 +61,8 @@ void	sort_chunks_to_a(t_list **a_stack, t_list **b_stack)
 		position_big = find_position_in_chunk(b_stack, max);
 		--max;
 		position_small = find_position_in_chunk(b_stack, max);
-		if (max == 0 || distance_from_zero(position_big) <= distance_from_zero(position_small))
+		if (max == 0 || distance_from_zero(position_big)
+			<= distance_from_zero(position_small))
 			find_in_b_push_to_a(a_stack, b_stack, position_big);
 		else
 		{
@@ -81,7 +96,7 @@ void	find_in_b_push_to_a(t_list **a_stack, t_list **b_stack, long position)
 
 long	find_position_in_chunk(t_list **stack, unsigned int value)
 {
-	t_list 			*stack_value;
+	t_list			*stack_value;
 	long			position;
 	unsigned int	size;
 

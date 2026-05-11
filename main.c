@@ -1,12 +1,12 @@
-/*                                                                            */
 /* ************************************************************************** */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnovotny <lnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 17:38:21 by lnovotny          #+#    #+#             */
-/*   Updated: 2026/03/28 18:10:58 by lnovotny         ###   ########.fr       */
+/*   Updated: 2026/05/06 18:04:51 by lnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	main(int argc, char *argv[])
 	t_list			*b_stack;
 	unsigned int	total_size;
 
+	if (argc < 2)
+		return (0);
 	a_stack = initialize_stack(argv);
 	b_stack = NULL;
 	if (!(a_stack))

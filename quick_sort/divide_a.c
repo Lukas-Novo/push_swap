@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   divide_a.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnovotny <lnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/06 17:12:56 by lnovotny          #+#    #+#             */
+/*   Updated: 2026/05/06 19:28:09 by lnovotny         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <push_swap.h>
 
-void	divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned int a_max)
+void	divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min,
+			unsigned int a_max)
 {
 	unsigned int	pivot;
 	unsigned int	count_back;
@@ -25,7 +38,8 @@ void	divide_a(t_list **a_stack, t_list **b_stack, unsigned int a_min, unsigned i
 	divide_b(a_stack, b_stack, a_min, pivot);
 }
 
-unsigned int	divide_a_with_pivot(t_list **a_stack, t_list **b_stack, unsigned int pivot, unsigned int a_min)
+unsigned int	divide_a_with_pivot(t_list **a_stack, t_list **b_stack,
+					unsigned int pivot, unsigned int a_min)
 {
 	unsigned int	count_back;
 	unsigned int	count;
@@ -43,7 +57,7 @@ unsigned int	divide_a_with_pivot(t_list **a_stack, t_list **b_stack, unsigned in
 		{
 			ra(a_stack);
 			++count_back;
-		}	
+		}
 	}
 	return (count_back);
 }

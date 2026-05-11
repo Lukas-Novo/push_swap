@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   stack_size.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnovotny <lnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/17 20:57:53 by lnovotny          #+#    #+#             */
-/*   Updated: 2025/11/18 19:06:39 by lnovotny         ###   ########.fr       */
+/*   Created: 2026/05/06 17:13:31 by lnovotny          #+#    #+#             */
+/*   Updated: 2026/05/06 18:31:12 by lnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 unsigned int	stack_size(t_list **stack)
 {
 	unsigned int	count;
-	t_list	*head;
+	t_list			*head;
 
 	if (*stack == NULL)
 		return (0);

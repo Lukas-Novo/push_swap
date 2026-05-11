@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_to_stack.c                                        :+:      :+:    :+:   */
+/*   add_to_stack.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnovotny <lnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 20:08:22 by lnovotny          #+#    #+#             */
-/*   Updated: 2025/11/18 18:43:49 by lnovotny         ###   ########.fr       */
+/*   Updated: 2026/05/06 18:30:28 by lnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_overflow(char *str, int original)
 {
 	int	i;
 	int	sign;
-	int size_original;
+	int	size_original;
 
 	sign = 1;
 	i = skip_whitespace_and_sign(str, &sign);
@@ -65,17 +65,17 @@ int	check_size(char *str, int size_num)
 		++str;
 	}
 	if ((*str == '\0' || *str == ' ' || *str == '\t' || *str == '\v'
-		|| *str == '\f' || *str == '\r' || *str == '\n') && size_num == 0)
+			|| *str == '\f' || *str == '\r' || *str == '\n') && size_num == 0)
 		return (1);
 	if ((*str == '\0' || *str == ' ' || *str == '\t' || *str == '\v'
-		|| *str == '\f' || *str == '\r' || *str == '\n') && size_num == 0)
+			|| *str == '\f' || *str == '\r' || *str == '\n') && size_num == 0)
 		return (1);
 	return (0);
 }
 
 t_list	*create_node(int original)
 {
-	t_list *new;
+	t_list	*new;
 
 	new = malloc(sizeof(t_list));
 	if (new == NULL)

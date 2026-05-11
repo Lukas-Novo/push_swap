@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   swap.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnovotny <lnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/06 17:12:59 by lnovotny          #+#    #+#             */
+/*   Updated: 2026/05/06 20:37:41 by lnovotny         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	swap(t_list **stack)
@@ -39,9 +51,9 @@ void	sb(t_list **b_stack)
 	write(1, "sb\n", 3);
 }
 
-void	ss(t_list **a_stack, t_list **b_stack)
-{
-	swap(a_stack);
-	swap(b_stack);
-	write(1, "ss\n", 3);
-}
+// void	ss(t_list **a_stack, t_list **b_stack)
+// {
+// 	swap(a_stack);
+// 	swap(b_stack);
+// 	write(1, "ss\n", 3);
+// }
